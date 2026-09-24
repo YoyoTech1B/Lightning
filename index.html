@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+  <meta name="theme-color" content="#05070d">
+  <meta name="description" content="YOYOTECH — Ultimate Digital Universe">
+
+  <title>Lightning</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2305070d'/%3E%3Ctext x='50' y='67' font-size='48' text-anchor='middle' fill='%2300a8ff' font-family='Arial' font-weight='bold'%3EYT%3C/text%3E%3C/svg%3E">
+
+  <script>
+    const manifest = {
+      name: "YOYOTECH Digital Universe",
+      short_name: "YOYOTECH",
+      start_url: ".",
+      display: "standalone",
+      background_color: "#05070d",
+      theme_color: "#05070d",
+      description: "YOYOTECH Digital Universe"
+    };
+
+    const manifestBlob = new Blob(
+      [JSON.stringify(manifest)],
+      {type: "application/manifest+json"}
+    );
+
+    const manifestURL = URL.createObjectURL(manifestBlob);
+
+    const manifestLink = document.createElement("link");
+    manifestLink.rel = "manifest";
+    manifestLink.href = manifestURL;
+    document.head.appendChild(manifestLink);
+  </script>
+</head>
+
+<body>
+
+<div id="bootScreen">
+  <div class="boot-core">
+    <div class="boot-logo">YT</div>
+    <div class="boot-title">YOYOTECH</div>
+    <div class="boot-subtitle">DIGITAL UNIVERSE</div>
+
+    <div class="boot-loader">
+      <div id="bootProgress"></div>
+    </div>
+
+    <div id="bootText">INITIALIZING CORE...</div>
+  </div>
+</div>
+
+<div id="toastContainer"></div>
+
+<div id="app">
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar">
+
+    <div class="brand" onclick="navigate('home')">
+      <div class="brand-icon">YT</div>
+      <div>
+        <div class="brand-name">YOYOTECH</div>
+        <div class="brand-status">
+          <span class="status-dot"></span>
+          CORE ONLINE
+        </div>
+      </div>
+    </div>
+
+    <nav class="main-nav">
+
+      <button class="nav-item active" data-page="home" onclick="navigate('home')">
+        <span>⌂</span>
+        <b>Home</b>
+      </button>
+
+      <button class="nav-item" data-page="social" onclick="navigate('social')">
+        <span>◉</span>
+        <b>Social</b>
+        <em id="navMessages">3</em>
+      </button>
+
+      <button class="nav-item" data-page="games" onclick="navigate('games')">
+        <span>◆</span>
+        <b>Games</b>
+      </button>
+
+      <button class="nav-item" data-page="lab" onclick="navigate('lab')">
+        <span>⌬</span>
+        <b>Experiment Lab</b>
+      </button>
+
+      <button class="nav-item" data-page="projects" onclick="navigate('projects')">
+        <span>▣</span>
+        <b>Projects</b>
+      </button>
+
+      <button class="nav-item" data-page="missions" onclick="navigate('missions')">
+        <span>◇</span>
+        <b>Missions</b>
+      </button>
+
+    </nav>
+
+    <div class="sidebar-divider"></div>
+
+    <button class="nav-item" data-page="profile" onclick="navigate('profile')">
+      <span>◎</span>
+      <b>Profile</b>
+    </button>
+
+    <button class="nav-item" data-page="settings" onclick="navigate('settings')">
+      <span>⚙</span>
+      <b>Settings</b>
+    </button>
+
+    <div class="sidebar-bottom">
+
+      <div class="mini-user">
+        <div class="avatar">Y</div>
+        <div class="mini-user-info">
+          <strong id="sideUsername">YOYO</strong>
+          <small id="sideLevel">LEVEL 1</small>
+        </div>
+        <span class="online-ring"></span>
+      </div>
+
+      <button class="secret-button" onclick="openSecret()">
+        <span>🔐</span>
+        <span>CLASSIFIED</span>
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <!-- MOBILE TOP -->
+
+  <header class="mobile-header">
+
+    <div class="brand">
+      <div class="brand-icon">YT</div>
+      <div>
+        <div class="brand-name">YOYOTECH</div>
+        <div class="brand-status">
+          <span class="status-dot"></span>
+          ONLINE
+        </div>
+      </div>
+    </div>
+
+    <button class="icon-button" onclick="showNotifications()">🔔</button>
+
+  </header>
+
+
+  <!-- MAIN -->
+
+  <main class="main">
+
+    <header class="topbar">
+
+      <div class="breadcrumb">
+        <span>YOYOTECH</span>
+        <b>/</b>
+        <strong id="pageTitle">HOME</strong>
+      </div>
+
+      <div class="top-actions">
+
+        <div class="top-stat">
+          <span>⚡</span>
+          <b id="topXP">0 XP</b>
+        </div>
+
+        <div class="top-stat">
+          <span>🪙</span>
+          <b id="topCoins">0</b>
+        </div>
+
+        <button class="icon-button" onclick="showNotifications()">
+          🔔
+          <span class="notification-dot" id="notificationDot"></span>
+        </button>
+
+        <button class="profile-mini" onclick="navigate('profile')">
+          <span id="topAvatar">Y</span>
+        </button>
+
+      </div>
+
+    </header>
+
+
+    <!-- PAGE CONTAINER -->
+
+    <section id="pageContainer">
+
+
+      <!-- HOME -->
+
+      <div class="page active-page" id="page-home">
+
+        <div class="hero">
+
+          <div class="hero-content">
+
+            <div class="eyebrow">
+              <span class="pulse"></span>
+              SYSTEM OPERATIONAL
+            </div>
+
+            <h1>
+              Welcome back,
+              <span id="heroUsername">YOYO</span>.
+            </h1>
+
+            <p>
+              Your digital universe is online.
+              Explore, create, play, experiment and unlock the core.
+            </p>
+
+            <div class="hero-actions">
+              <button class="primary-button" onclick="navigate('games')">
+                ENTER ARCADE →
+              </button>
+
+              <button class="secondary-button" onclick="navigate('lab')">
+                EXPLORE LAB
+              </button>
+            </div>
+
+          </div>
+
+          <div class="hero-core">
+            <div class="core-orbit orbit-one"></div>
+            <div class="core-orbit orbit-two"></div>
+            <div class="core-orbit orbit-three"></div>
+
+            <div class="core-center">
+              <span>YT</span>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="stats-grid">
+
+          <div class="stat-card">
+            <div class="stat-icon blue">⚡</div>
+            <div>
+              <small>EXPERIENCE</small>
+              <strong id="homeXP">0</strong>
+              <span>XP</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon gold">🪙</div>
+            <div>
+              <small>CREDITS</small>
+              <strong id="homeCoins">0</strong>
+              <span>COINS</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon purple">◆</div>
+            <div>
+              <small>LEVEL</small>
+              <strong id="homeLevel">1</strong>
+              <span id="homeRank">INITIATE</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon green">✓</div>
+            <div>
+              <small>ACHIEVEMENTS</small>
+              <strong id="homeAchievements">0</strong>
+              <span>UNLOCKED</span>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">QUICK ACCESS</span>
+            <h2>Command Center</h2>
+          </div>
+        </div>
+
+
+        <div class="quick-grid">
+
+          <button class="quick-card" onclick="navigate('social')">
+            <span class="quick-icon">◉</span>
+            <div>
+              <strong>Social</strong>
+              <small>Open communications</small>
+            </div>
+            <span class="arrow">→</span>
+          </button>
+
+          <button class="quick-card" onclick="navigate('games')">
+            <span class="quick-icon">◆</span>
+            <div>
+              <strong>Arcade</strong>
+              <small>Play your games</small>
+            </div>
+            <span class="arrow">→</span>
+          </button>
+
+          <button class="quick-card" onclick="navigate('lab')">
+            <span class="quick-icon">⌬</span>
+            <div>
+              <strong>Experiment Lab</strong>
+              <small>Run experiments</small>
+            </div>
+            <span class="arrow">→</span>
+          </button>
+
+          <button class="quick-card" onclick="navigate('projects')">
+            <span class="quick-icon">▣</span>
+            <div>
+              <strong>Projects</strong>
+              <small>View your creations</small>
+            </div>
+            <span class="arrow">→</span>
+          </button>
+
+        </div>
+
+
+        <div class="home-columns">
+
+          <div class="panel">
+
+            <div class="panel-header">
+              <div>
+                <span class="eyebrow">CURRENT OBJECTIVE</span>
+                <h3 id="homeMissionTitle">Complete your first mission</h3>
+              </div>
+              <span class="mission-icon">◇</span>
+            </div>
+
+            <div class="mission-progress">
+              <div class="progress-label">
+                <span id="homeMissionProgress">0 / 1</span>
+                <span>+100 XP</span>
+              </div>
+              <div class="progress-bar">
+                <div id="homeMissionBar" style="width:0%"></div>
+              </div>
+            </div>
+
+            <button class="panel-button" onclick="navigate('missions')">
+              VIEW MISSIONS →
+            </button>
+
+          </div>
+
+
+          <div class="panel">
+
+            <div class="panel-header">
+              <div>
+                <span class="eyebrow">SYSTEM STATUS</span>
+                <h3>Core Diagnostics</h3>
+              </div>
+              <span class="status-badge online">ONLINE</span>
+            </div>
+
+            <div class="system-list">
+
+              <div>
+                <span>Core</span>
+                <b>100%</b>
+              </div>
+
+              <div>
+                <span>Network</span>
+                <b>ONLINE</b>
+              </div>
+
+              <div>
+                <span>Storage</span>
+                <b>LOCAL</b>
+              </div>
+
+              <div>
+                <span>Security</span>
+                <b>ACTIVE</b>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- SOCIAL -->
+
+      <div class="page" id="page-social">
+
+        <div class="page-heading">
+          <div>
+            <span class="eyebrow">COMMUNICATIONS</span>
+            <h1>Lightning Social</h1>
+            <p>Connect inside the YOYOTECH universe.</p>
+          </div>
+
+          <button class="primary-button" onclick="newChat()">＋ NEW CHAT</button>
+        </div>
+
+
+        <div class="social-layout">
+
+          <div class="chat-list">
+
+            <div class="search-box">
+              <span>⌕</span>
+              <input
+                id="chatSearch"
+                type="text"
+                placeholder="Search conversations..."
+                oninput="filterChats()"
+              >
+            </div>
+
+            <div id="chatListItems"></div>
+
+          </div>
+
+
+          <div class="chat-window">
+
+            <div class="chat-header">
+
+              <div class="chat-user">
+
+                <div class="chat-avatar" id="chatAvatar">A</div>
+
+                <div>
+                  <strong id="chatName">Alex</strong>
+                  <span id="chatStatus">● Online</span>
+                </div>
+
+              </div>
+
+              <div>
+                <button class="icon-button">⌕</button>
+                <button class="icon-button">⋮</button>
+              </div>
+
+            </div>
+
+
+            <div class="messages" id="messages"></div>
+
+
+            <div class="typing-indicator" id="typingIndicator">
+              Alex is typing...
+            </div>
+
+
+            <form class="message-input" onsubmit="sendMessage(event)">
+
+              <button type="button" class="input-action" onclick="showToast('Emoji system coming online!','info')">
+                ☺
+              </button>
+
+              <input
+                id="messageInput"
+                autocomplete="off"
+                placeholder="Type a message..."
+              >
+
+              <button type="submit" class="send-button">⚡</button>
+
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- GAMES -->
+
+      <div class="page" id="page-games">
+
+        <div class="page-heading">
+
+          <div>
+            <span class="eyebrow">YOYOTECH ARCADE</span>
+            <h1>Game Hub</h1>
+            <p>Play. Score. Level up.</p>
+          </div>
+
+          <div class="level-display">
+            LEVEL <b id="gameLevel">1</b>
+          </div>
+
+        </div>
+
+
+        <div class="game-feature">
+
+          <div class="game-feature-content">
+
+            <span class="eyebrow">FEATURED GAME</span>
+
+            <h2>CORE DEFENDER</h2>
+
+            <p>
+              Defend the YOYOTECH core from incoming system threats.
+              Survive as long as possible and build your high score.
+            </p>
+
+            <div class="game-meta">
+              <span>⚡ +XP</span>
+              <span>🏆 ACHIEVEMENTS</span>
+              <span>🪙 REWARDS</span>
+            </div>
+
+            <button class="primary-button" onclick="startCoreDefender()">
+              PLAY NOW →
+            </button>
+
+          </div>
+
+          <div class="game-visual">
+            <div class="defender-core">YT</div>
+            <div class="enemy enemy-a">◆</div>
+            <div class="enemy enemy-b">◆</div>
+            <div class="enemy enemy-c">◆</div>
+          </div>
+
+        </div>
+
+
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">ARCADE</span>
+            <h2>Games</h2>
+          </div>
+        </div>
+
+
+        <div class="games-grid">
+
+          <div class="game-card">
+            <div class="game-art lightning-art">⚡</div>
+            <div class="game-card-body">
+              <span class="tag">ACTION</span>
+              <h3>Lightning Run</h3>
+              <p>Race through an endless digital storm.</p>
+              <div class="game-card-footer">
+                <span>HIGH SCORE: <b id="runScore">0</b></span>
+                <button onclick="playLightningRun()">PLAY</button>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="game-card">
+            <div class="game-art reaction-art">◉</div>
+            <div class="game-card-body">
+              <span class="tag">REACTION</span>
+              <h3>Core Reaction</h3>
+              <p>Test how fast you can react.</p>
+              <div class="game-card-footer">
+                <span>BEST: <b id="reactionScore">0</b>ms</span>
+                <button onclick="startReaction()">PLAY</button>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="game-card">
+            <div class="game-art memory-art">◆</div>
+            <div class="game-card-body">
+              <span class="tag">PUZZLE</span>
+              <h3>Core Memory</h3>
+              <p>Remember the sequence and survive.</p>
+              <div class="game-card-footer">
+                <span>LEVEL: <b id="memoryLevel">1</b></span>
+                <button onclick="startMemory()">PLAY</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- LAB -->
+
+      <div class="page" id="page-lab">
+
+        <div class="page-heading">
+
+          <div>
+            <span class="eyebrow">RESEARCH DIVISION</span>
+            <h1>Experiment Lab</h1>
+            <p>Break things. Build things. Discover things.</p>
+          </div>
+
+          <span class="status-badge online">LAB ONLINE</span>
+
+        </div>
+
+
+        <div class="lab-grid">
+
+          <button class="experiment-card" onclick="runExperiment('particle')">
+            <span class="experiment-icon">✦</span>
+            <span class="tag">VISUAL</span>
+            <h3>Particle Universe</h3>
+            <p>Generate an interactive digital particle field.</p>
+            <b>RUN EXPERIMENT →</b>
+          </button>
+
+          <button class="experiment-card" onclick="runExperiment('terminal')">
+            <span class="experiment-icon">⌘</span>
+            <span class="tag">SYSTEM</span>
+            <h3>Core Terminal</h3>
+            <p>Access the fictional YOYOTECH command interface.</p>
+            <b>OPEN TERMINAL →</b>
+          </button>
+
+          <button class="experiment-card" onclick="runExperiment('scanner')">
+            <span class="experiment-icon">⌁</span>
+            <span class="tag">DIAGNOSTICS</span>
+            <h3>System Scanner</h3>
+            <p>Run a simulated system diagnostic.</p>
+            <b>SCAN SYSTEM →</b>
+          </button>
+
+          <button class="experiment-card" onclick="runExperiment('sound')">
+            <span class="experiment-icon">♫</span>
+            <span class="tag">AUDIO</span>
+            <h3>Sound Lab</h3>
+            <p>Create tones using your browser's audio engine.</p>
+            <b>OPEN LAB →</b>
+          </button>
+
+          <button class="experiment-card" onclick="runExperiment('matrix')">
+            <span class="experiment-icon">01</span>
+            <span class="tag">VISUAL</span>
+            <h3>Digital Rain</h3>
+            <p>Activate the digital rain simulation.</p>
+            <b>ACTIVATE →</b>
+          </button>
+
+          <button class="experiment-card" onclick="runExperiment('calculator')">
+            <span class="experiment-icon">+</span>
+            <span class="tag">UTILITY</span>
+            <h3>Core Calculator</h3>
+            <p>A futuristic calculator built into the core.</p>
+            <b>OPEN →</b>
+          </button>
+
+        </div>
+
+
+        <div class="terminal-panel">
+
+          <div class="terminal-top">
+            <span><i></i><i></i><i></i></span>
+            <b>YTCC://LAB/TERMINAL</b>
+            <span>ONLINE</span>
+          </div>
+
+          <div class="terminal-output" id="terminalOutput">
+            <div>YOYOTECH CORE TERMINAL v2.0</div>
+            <div>Type <b>help</b> to view available commands.</div>
+            <div class="terminal-prompt">YT@CORE:~$ <span class="blink">_</span></div>
+          </div>
+
+          <form class="terminal-input" onsubmit="terminalCommand(event)">
+            <span>YT@CORE:~$</span>
+            <input id="terminalInput" autocomplete="off">
+          </form>
+
+        </div>
+
+      </div>
+
+
+      <!-- PROJECTS -->
+
+      <div class="page" id="page-projects">
+
+        <div class="page-heading">
+
+          <div>
+            <span class="eyebrow">CREATION ARCHIVE</span>
+            <h1>Projects</h1>
+            <p>Everything you build belongs here.</p>
+          </div>
+
+          <button class="primary-button" onclick="showToast('Project creator unlocked in a future core update.','info')">
+            ＋ NEW PROJECT
+          </button>
+
+        </div>
+
+
+        <div class="project-grid">
+
+          <article class="project-card featured-project">
+
+            <div class="project-banner ytcc-banner">
+              <span>YTCC</span>
+            </div>
+
+            <div class="project-content">
+              <span class="status-badge online">ACTIVE</span>
+              <h2>YOYOTECH Command Control Center</h2>
+              <p>
+                A futuristic command center and digital control system.
+              </p>
+
+              <div class="project-tags">
+                <span>HTML</span>
+                <span>CSS</span>
+                <span>JAVASCRIPT</span>
+                <span>PWA</span>
+              </div>
+
+              <button onclick="showToast('YTCC project profile opened.','success')">
+                OPEN PROJECT →
+              </button>
+            </div>
+
+          </article>
+
+
+          <article class="project-card">
+
+            <div class="project-banner lightning-banner">
+              ⚡
+            </div>
+
+            <div class="project-content">
+              <span class="status-badge working">DEVELOPMENT</span>
+              <h2>Lightning Social</h2>
+              <p>A lightning-themed social communication experience.</p>
+
+              <div class="project-tags">
+                <span>SOCIAL</span>
+                <span>UI</span>
+              </div>
+
+              <button onclick="navigate('social')">
+                OPEN →
+              </button>
+            </div>
+
+          </article>
+
+
+          <article class="project-card">
+
+            <div class="project-banner lab-banner">
+              ⌬
+            </div>
+
+            <div class="project-content">
+              <span class="status-badge online">ACTIVE</span>
+              <h2>Experiment Lab</h2>
+              <p>A collection of interactive experiments and tools.</p>
+
+              <div class="project-tags">
+                <span>EXPERIMENTS</span>
+                <span>TOOLS</span>
+              </div>
+
+              <button onclick="navigate('lab')">
+                OPEN →
+              </button>
+            </div>
+
+          </article>
+
+        </div>
+
+      </div>
+
+
+      <!-- MISSIONS -->
+
+      <div class="page" id="page-missions">
+
+        <div class="page-heading">
+
+          <div>
+            <span class="eyebrow">OBJECTIVES</span>
+            <h1>Mission Center</h1>
+            <p>Complete objectives and grow your core.</p>
+          </div>
+
+          <div class="mission-counter">
+            <strong id="missionCompleted">0</strong>
+            <span>COMPLETED</span>
+          </div>
+
+        </div>
+
+
+        <div class="mission-tabs">
+          <button class="active">DAILY</button>
+          <button>WEEKLY</button>
+          <button>SPECIAL</button>
+        </div>
+
+
+        <div id="missionsList" class="missions-list"></div>
+
+      </div>
+
+
+      <!-- PROFILE -->
+
+      <div class="page" id="page-profile">
+
+        <div class="profile-hero">
+
+          <div class="profile-avatar">
+            <span id="profileAvatar">Y</span>
+            <i></i>
+          </div>
+
+          <div class="profile-info">
+
+            <span class="eyebrow">COMMAND USER</span>
+
+            <h1 id="profileName">YOYO</h1>
+
+            <p id="profileRank">CORE INITIATE</p>
+
+            <div class="profile-stats">
+              <span>⚡ <b id="profileXP">0</b> XP</span>
+              <span>🪙 <b id="profileCoins">0</b> COINS</span>
+              <span>🏆 <b id="profileAchievements">0</b> ACHIEVEMENTS</span>
+            </div>
+
+          </div>
+
+          <button class="secondary-button" onclick="editProfile()">
+            EDIT PROFILE
+          </button>
+
+        </div>
+
+
+        <div class="level-panel">
+
+          <div class="level-header">
+            <div>
+              <span class="eyebrow">CURRENT LEVEL</span>
+              <strong>LEVEL <span id="profileLevel">1</span></strong>
+            </div>
+
+            <span id="profileXPText">0 / 100 XP</span>
+          </div>
+
+          <div class="progress-bar large">
+            <div id="profileXPBar" style="width:0%"></div>
+          </div>
+
+        </div>
+
+
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">UNLOCKED</span>
+            <h2>Achievements</h2>
+          </div>
+        </div>
+
+        <div id="achievementGrid" class="achievement-grid"></div>
+
+      </div>
+
+
+      <!-- SETTINGS -->
+
+      <div class="page" id="page-settings">
+
+        <div class="page-heading">
+
+          <div>
+            <span class="eyebrow">SYSTEM CONFIGURATION</span>
+            <h1>Settings</h1>
+            <p>Configure your YOYOTECH experience.</p>
+          </div>
+
+        </div>
+
+
+        <div class="settings-panel">
+
+          <div class="setting-row">
+
+            <div>
+              <strong>Sound Effects</strong>
+              <small>Interface and game sounds</small>
+            </div>
+
+            <label class="switch">
+              <input type="checkbox" id="soundToggle" checked onchange="toggleSetting('sound',this.checked)">
+              <span></span>
+            </label>
+
+          </div>
+
+
+          <div class="setting-row">
+
+            <div>
+              <strong>Animations</strong>
+              <small>Interface motion and visual effects</small>
+            </div>
+
+            <label class="switch">
+              <input type="checkbox" id="animationToggle" checked onchange="toggleSetting('animations',this.checked)">
+              <span></span>
+            </label>
+
+          </div>
+
+
+          <div class="setting-row">
+
+            <div>
+              <strong>Notifications</strong>
+              <small>System notifications and alerts</small>
+            </div>
+
+            <label class="switch">
+              <input type="checkbox" id="notificationToggle" checked onchange="toggleSetting('notifications',this.checked)">
+              <span></span>
+            </label>
+
+          </div>
+
+
+          <div class="setting-row">
+
+            <div>
+              <strong>System Theme</strong>
+              <small>Current theme: Midnight Core</small>
+            </div>
+
+            <button class="small-button" onclick="cycleTheme()">CHANGE</button>
+
+          </div>
+
+
+          <div class="setting-row danger">
+
+            <div>
+              <strong>Reset Local Data</strong>
+              <small>Delete saved progress and settings</small>
+            </div>
+
+            <button class="danger-button" onclick="resetData()">RESET</button>
+
+          </div>
+
+        </div>
+
+
+        <div class="about-core">
+          <div class="core-logo-small">YT</div>
+          <div>
+            <strong>YOYOTECH DIGITAL UNIVERSE</strong>
+            <small>CORE VERSION 2.0.0 • 4-FILE ARCHITECTURE</small>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- MOBILE NAV -->
+
+    <nav class="mobile-nav">
+
+      <button class="active" data-page="home" onclick="navigate('home')">
+        <span>⌂</span>
+        Home
+      </button>
+
+      <button data-page="social" onclick="navigate('social')">
+        <span>◉</span>
+        Social
+      </button>
+
+      <button data-page="games" onclick="navigate('games')">
+        <span>◆</span>
+        Games
+      </button>
+
+      <button data-page="lab" onclick="navigate('lab')">
+        <span>⌬</span>
+        Lab
+      </button>
+
+      <button data-page="profile" onclick="navigate('profile')">
+        <span>◎</span>
+        Profile
+      </button>
+
+    </nav>
+
+  </main>
+
+</div>
+
+
+<!-- CORE DEFENDER MODAL -->
+
+<div class="modal hidden" id="gameModal">
+
+  <div class="modal-card game-modal">
+
+    <button class="modal-close" onclick="closeModal('gameModal')">×</button>
+
+    <div class="game-modal-header">
+      <span class="eyebrow">CORE DEFENDER</span>
+      <h2>DEFEND THE CORE</h2>
+    </div>
+
+    <div class="game-hud">
+      <span>SCORE <b id="defenderScore">0</b></span>
+      <span>TIME <b id="defenderTime">30</b></span>
+      <span>COMBO <b id="defenderCombo">0</b></span>
+    </div>
+
+    <div class="defender-arena" id="defenderArena">
+      <div class="arena-core" id="arenaCore">YT</div>
+    </div>
+
+    <button class="defend-button" onclick="defendCore()">
+      ⚡ DEFEND
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- REACTION MODAL -->
+
+<div class="modal hidden" id="reactionModal">
+
+  <div class="modal-card reaction-modal">
+
+    <button class="modal-close" onclick="closeModal('reactionModal')">×</button>
+
+    <span class="eyebrow">REACTION TEST</span>
+    <h2 id="reactionTitle">WAIT FOR GREEN</h2>
+
+    <div
+      id="reactionArea"
+      class="reaction-area"
+      onclick="reactionClick()"
+    >
+      <span id="reactionText">CLICK START</span>
+    </div>
+
+    <button
+      id="reactionStart"
+      class="primary-button"
+      onclick="reactionStart()"
+    >
+      START TEST
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- MEMORY MODAL -->
+
+<div class="modal hidden" id="memoryModal">
+
+  <div class="modal-card">
+
+    <button class="modal-close" onclick="closeModal('memoryModal')">×</button>
+
+    <span class="eyebrow">CORE MEMORY</span>
+    <h2>REMEMBER THE SEQUENCE</h2>
+
+    <div class="memory-status">
+      LEVEL <b id="memoryCurrentLevel">1</b>
+    </div>
+
+    <div class="memory-grid">
+
+      <button onclick="memoryPress(0)"></button>
+      <button onclick="memoryPress(1)"></button>
+      <button onclick="memoryPress(2)"></button>
+      <button onclick="memoryPress(3)"></button>
+      <button onclick="memoryPress(4)"></button>
+      <button onclick="memoryPress(5)"></button>
+      <button onclick="memoryPress(6)"></button>
+      <button onclick="memoryPress(7)"></button>
+      <button onclick="memoryPress(8)"></button>
+
+    </div>
+
+    <button class="primary-button" onclick="memoryBegin()">
+      START
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- EXPERIMENT MODAL -->
+
+<div class="modal hidden" id="experimentModal">
+
+  <div class="modal-card experiment-modal">
+
+    <button class="modal-close" onclick="closeModal('experimentModal')">×</button>
+
+    <div id="experimentContent"></div>
+
+  </div>
+
+</div>
+
+
+<!-- NOTIFICATIONS -->
+
+<div class="notification-panel hidden" id="notificationPanel">
+
+  <div class="notification-panel-header">
+    <strong>NOTIFICATIONS</strong>
+    <button onclick="hideNotifications()">×</button>
+  </div>
+
+  <div id="notificationList"></div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
